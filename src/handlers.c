@@ -112,7 +112,7 @@ void _save_screen_border(device_t *state) {
     } else if (idx == 1) {
         /* On primary screen, cursor away from border: set transition 0 "from" (1→2) */
         border = &output->screen_transition[0].from;
-    } else if (idx == MAX_SCREEN_COUNT) {
+    } else if (idx == output->screen_count) {
         /* On last screen: set the "to" border for returning */
         border = &output->screen_transition[idx - 2].to;
     } else {

@@ -81,8 +81,9 @@ typedef struct {
     uint16_t jump_threshold;
 
     output_t output[NUM_SCREENS];
-    screen_transition_t computer_border;  // Y-ranges for computer A↔B transitions
-    uint16_t hold_threshold_ms;           // Tap vs hold threshold for output toggle hotkey
+    horizontal_transition_t horizontal_computer_border;
+    vertical_transition_t vertical_computer_border;
+    uint16_t hold_threshold_ms;
     uint16_t _reserved;
 
     // Keep checksum at the end of the struct
@@ -180,6 +181,8 @@ enum screen_pos_e {
     LEFT   = 1,
     RIGHT  = 2,
     MIDDLE = 3,
+    TOP    = 4,
+    BOTTOM = 5,
 };
 
 enum screensaver_mode_e {

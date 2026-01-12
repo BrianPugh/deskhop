@@ -29,12 +29,12 @@ class FormField:
 
 @dataclass
 class TableRow:
-    """A table row with a label and four input fields (from top/bottom, to top/bottom)."""
+    """A table row with a label and four input fields (from start/end, to start/end)."""
     label: str
-    from_top_offset: int
-    from_bottom_offset: int
-    to_top_offset: int
-    to_bottom_offset: int
+    from_start_offset: int
+    from_end_offset: int
+    to_start_offset: int
+    to_end_offset: int
     data_type: str = "int32"
     elem: str = "table_row"
     json_prefix: str | None = None
@@ -78,13 +78,23 @@ CONFIG_ = [
     FormField(76, "Enforce Ports", None, {}, "uint8", "checkbox",
               help="Restricts keyboard to board A and mouse to board B. Enable if your devices are being detected on the wrong board."),
 
-    FormField(1003, "Computer Border (A ↔ B)", elem="table_start", json_name="border"),
-    TableRow("A ↔ B", 83, 84, 85, 86, json_prefix=""),
+    FormField(1003, "Horizontal Computer Border (A ↔ B)", elem="table_start", json_name="horizontal_border",
+              help="Y-coordinate range for switching between computers when monitors are side-by-side."),
+    TableRow("A ↔ B", 83, 84, 85, 86, data_type="int16", json_prefix=""),
     FormField(1004, "", elem="table_end"),
+
+    FormField(1005, "Vertical Computer Border (A ↔ B)", elem="table_start", json_name="vertical_border",
+              help="X-coordinate range for switching between computers when monitors are stacked."),
+    TableRow("A ↔ B", 88, 89, 90, 91, data_type="int16", json_prefix=""),
+    FormField(1006, "", elem="table_end"),
 ]
 
 OUTPUT_ = [
     FormField(1, "Screen Count", 1, {1: "1", 2: "2", 3: "3"}, "uint32"),
+    FormField(4, "Monitor Layout", 0, {0: "Horizontal", 1: "Vertical"}, "uint8",
+              help="How monitors are arranged: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."),
+    FormField(5, "Border Monitor Index", 1, {1: "1", 2: "2", 3: "3"}, "uint8",
+              help="For vertical layouts: which monitor (1=top, 2=middle, 3=bottom) can switch to the other computer. Only relevant when Monitor Layout is Vertical."),
     FormField(2, "Speed X", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(3, "Speed Y", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(6, "Operating System", 1, {1: "Linux", 2: "MacOS", 3: "Windows", 4: "Android", 255: "Other"}, "uint8"),
@@ -101,11 +111,17 @@ OUTPUT_ = [
     FormField(12, "Max Time (μs)", None, {}, "uint64",
               help="Maximum duration (in microseconds) the screensaver runs before stopping. Set to 0 for unlimited. Example: 60000000 = 1 minute."),
 
-    FormField(1004, "Screen Transitions", elem="table_start",
-              help="Defines where the cursor exits and enters each screen. Use RightShift + F12 + Y hotkey; see manual for more details."),
-    TableRow("1 ↔ 2", 13, 14, 15, 16),
-    TableRow("2 ↔ 3", 17, 18, 19, 20),
+    FormField(1004, "Horizontal Transitions (Y-ranges)", elem="table_start", json_name="horizontal_transitions",
+              help="For horizontal layouts: Y-coordinate ranges where cursor can move between side-by-side monitors. Use RightShift + F12 + Y hotkey; see manual for more details."),
+    TableRow("1 ↔ 2", 13, 14, 15, 16, data_type="int16"),
+    TableRow("2 ↔ 3", 17, 18, 19, 20, data_type="int16"),
     FormField(1005, "", elem="table_end"),
+
+    FormField(1006, "Vertical Transitions (X-ranges)", elem="table_start", json_name="vertical_transitions",
+              help="For vertical layouts: X-coordinate ranges where cursor can move between stacked monitors (top ↔ bottom)."),
+    TableRow("1 ↔ 2", 21, 22, 23, 24, data_type="int16"),
+    TableRow("2 ↔ 3", 25, 26, 27, 28, data_type="int16"),
+    FormField(1007, "", elem="table_end"),
 ]
 
 def generate_output(base, data, table_context=""):
@@ -118,17 +134,17 @@ def generate_output(base, data, table_context=""):
             prefix = ".".join(parts) if parts else ""
             output.append({
                 "label": item.label,
-                "from_top_key": base + item.from_top_offset,
-                "from_bottom_key": base + item.from_bottom_offset,
-                "to_top_key": base + item.to_top_offset,
-                "to_bottom_key": base + item.to_bottom_offset,
+                "from_start_key": base + item.from_start_offset,
+                "from_end_key": base + item.from_end_offset,
+                "to_start_key": base + item.to_start_offset,
+                "to_end_key": base + item.to_end_offset,
                 "type": item.data_type,
                 "elem": item.elem,
                 "json_names": {
-                    "from_top": f"{prefix}.from_top" if prefix else "from_top",
-                    "from_bottom": f"{prefix}.from_bottom" if prefix else "from_bottom",
-                    "to_top": f"{prefix}.to_top" if prefix else "to_top",
-                    "to_bottom": f"{prefix}.to_bottom" if prefix else "to_bottom",
+                    "from_start": f"{prefix}.from_start" if prefix else "from_start",
+                    "from_end": f"{prefix}.from_end" if prefix else "from_end",
+                    "to_start": f"{prefix}.to_start" if prefix else "to_start",
+                    "to_end": f"{prefix}.to_end" if prefix else "to_end",
                 },
             })
         else:

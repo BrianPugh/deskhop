@@ -342,6 +342,7 @@ void switch_vertical_screen_macos(device_t *state, int direction) {
     mouse_report_t move_relative_one = {
         .y = move,
         .mode = RELATIVE,
+        .buttons = state->mouse_buttons,
     };
 
     output_mouse_report(&edge_position, state);

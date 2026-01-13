@@ -191,8 +191,10 @@ void reset_macos_to_screen1(device_t *state, output_t *output) {
 }
 
 void switch_to_another_pc(device_t *state, output_t *output, int output_to, int direction) {
-    /* For vertical monitor layouts, only the configured border monitor can switch computers */
-    if (output->monitor_layout == LAYOUT_VERTICAL &&
+    /* When monitor and computer orientations differ, only border_monitor_index can switch */
+    bool is_vertical_monitor = (output->monitor_layout == LAYOUT_VERTICAL);
+    bool is_vertical_computer = (output->pos == TOP || output->pos == BOTTOM);
+    if (is_vertical_monitor != is_vertical_computer &&
         output->screen_index != output->border_monitor_index) {
         return;
     }
@@ -209,9 +211,8 @@ void switch_to_another_pc(device_t *state, output_t *output, int output_to, int 
     bool to_valid = (to_range->start < to_range->end);
     bool range_valid = from_valid && to_valid;
 
-    /* Determine which coordinate to check based on computer layout */
-    bool is_vertical = (state->config.computer_layout == LAYOUT_VERTICAL);
-    int16_t check_coord = is_vertical ? state->pointer_x : state->pointer_y;
+    /* Use computer layout to determine which coordinate to check (vertical = X, horizontal = Y) */
+    int16_t check_coord = is_vertical_computer ? state->pointer_x : state->pointer_y;
 
     /* Block transition if cursor is outside the allowed range */
     if (range_valid && (check_coord < from_range->start || check_coord > from_range->end))
@@ -233,7 +234,7 @@ void switch_to_another_pc(device_t *state, output_t *output, int output_to, int 
         reset_macos_to_screen1(state, &state->config.output[output_to]);
 
     /* Set new position based on computer layout */
-    if (is_vertical) {
+    if (is_vertical_computer) {
         state->pointer_y = (direction == TOP) ? MAX_SCREEN_COORD : MIN_SCREEN_COORD;
         state->pointer_x = map_screen_transition(state->pointer_x, from_range, to_range);
     } else {
@@ -361,28 +362,42 @@ void do_screen_switch(device_t *state, int direction) {
         return;
 
     bool is_vertical_monitor = (output->monitor_layout == LAYOUT_VERTICAL);
-    bool is_vertical_computer = (state->config.computer_layout == LAYOUT_VERTICAL);
+    /* Derive computer layout from position (TOP/BOTTOM = vertical, LEFT/RIGHT = horizontal) */
+    bool is_vertical_computer = (output->pos == TOP || output->pos == BOTTOM);
+    bool dir_is_vertical = (direction == TOP || direction == BOTTOM);
 
-    /* Determine if direction is "along" the monitor layout (moving between screens on same computer) */
-    bool dir_along_monitors = is_vertical_monitor ? (direction == TOP || direction == BOTTOM)
-                                                  : (direction == LEFT || direction == RIGHT);
+    /* Is direction along the monitor layout? (could move between monitors) */
+    bool dir_along_monitors = (is_vertical_monitor == dir_is_vertical);
+
+    /* Is direction toward the other computer? Only true if direction matches computer orientation
+     * and we're moving opposite to our position (toward the border where the other computer is) */
+    bool toward_other_computer = (is_vertical_computer == dir_is_vertical) && (output->pos != direction);
 
     if (dir_along_monitors) {
         /* Movement along monitor layout (between screens on same computer) */
         int original_screen_index = output->screen_index;
 
-        /* Check if moving toward or away from computer border */
-        bool toward_border = (output->pos != direction);
+        /* Are we moving toward screen 1 (the border screen)?
+         * Screen 1 is always closest to the computer border (opposite of pos).
+         * When monitor and computer orientations match, this equals toward_other_computer.
+         * When they differ, use geometric convention (LEFT/TOP = toward lower index). */
+        bool toward_screen_1;
+        if (is_vertical_monitor == is_vertical_computer) {
+            toward_screen_1 = toward_other_computer;
+        } else {
+            toward_screen_1 = is_vertical_monitor ? (direction == TOP) : (direction == LEFT);
+        }
 
-        if (toward_border) {
-            if (output->screen_index == 1) {
-                /* At border screen - try to switch computers */
+        if (toward_screen_1) {
+            if (output->screen_index > 1) {
+                /* Move to lower screen index */
+                switch_virtual_desktop(state, output, output->screen_index - 1, direction);
+            } else if (toward_other_computer) {
+                /* At screen 1 AND moving toward other computer - try to switch */
                 if (state->mouse_buttons)
                     return;
                 switch_to_another_pc(state, output, 1 - state->active_output, direction);
-            } else {
-                /* Move to lower screen index */
-                switch_virtual_desktop(state, output, output->screen_index - 1, direction);
+                return;
             }
         } else if (output->screen_index < output->screen_count) {
             /* Move to higher screen index */
@@ -397,31 +412,24 @@ void do_screen_switch(device_t *state, int direction) {
                 state->pointer_x = (direction == LEFT) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
         }
     } else {
-        /* Movement perpendicular to monitor layout */
-        if (is_vertical_computer == !is_vertical_monitor) {
-            /* Computer border is in this direction - check if we can switch */
-            bool can_switch = !is_vertical_monitor ||
-                              (output->screen_index == output->border_monitor_index);
-            bool toward_other_computer = (output->pos != direction);
+        /* Movement perpendicular to monitor layout (orientations differ) */
+        if (toward_other_computer) {
+            /* Only the configured border monitor can switch to other computer */
+            bool can_switch = (output->screen_index == output->border_monitor_index);
 
-            if (can_switch && toward_other_computer) {
+            if (can_switch) {
                 if (state->mouse_buttons)
                     return;
                 switch_to_another_pc(state, output, 1 - state->active_output, direction);
-            } else {
-                /* Clamp position */
-                if (direction == LEFT || direction == RIGHT)
-                    state->pointer_x = (direction == LEFT) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
-                else
-                    state->pointer_y = (direction == TOP) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
+                return;
             }
-        } else {
-            /* No computer border in this direction - just clamp */
-            if (direction == LEFT || direction == RIGHT)
-                state->pointer_x = (direction == LEFT) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
-            else
-                state->pointer_y = (direction == TOP) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
         }
+
+        /* Clamp position */
+        if (dir_is_vertical)
+            state->pointer_y = (direction == TOP) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
+        else
+            state->pointer_x = (direction == LEFT) ? MIN_SCREEN_COORD : MAX_SCREEN_COORD;
     }
 }
 

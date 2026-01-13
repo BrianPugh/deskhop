@@ -78,11 +78,8 @@ CONFIG_ = [
     FormField(76, "Enforce Ports", None, {}, "uint8", "checkbox",
               help="Restricts keyboard to board A and mouse to board B. Enable if your devices are being detected on the wrong board."),
 
-    FormField(88, "Computer Layout", 0, {0: "Horizontal", 1: "Vertical"}, "uint8",
-              help="How the two computers are positioned: Horizontal (side-by-side) or Vertical (stacked)."),
-
     FormField(1003, "Computer Border (A ↔ B)", elem="table_start", json_name="border",
-              help="Coordinate range for switching between computers. Y-range for horizontal layouts, X-range for vertical layouts."),
+              help="Coordinate range for switching between computers. Y-range for horizontal layouts (Left/Right), X-range for vertical layouts (Top/Bottom)."),
     TableRow("A ↔ B", 83, 84, 85, 86, data_type="int16", json_prefix=""),
     FormField(1004, "", elem="table_end"),
 ]
@@ -92,11 +89,12 @@ OUTPUT_ = [
     FormField(4, "Monitor Layout", 0, {0: "Horizontal", 1: "Vertical"}, "uint8",
               help="How monitors are arranged on this computer: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."),
     FormField(5, "Border Monitor Index", 1, {1: "1", 2: "2", 3: "3"}, "uint8",
-              help="For vertical layouts: which monitor (1=top, 2=middle, 3=bottom) can switch to the other computer. Only relevant when Monitor Layout is Vertical."),
+              help="Which monitor can switch to the other computer. Numbering: 1=left/top, 2=middle, 3=right/bottom. Only applies when monitor orientation differs from computer orientation (e.g., side-by-side monitors with a stacked computer arrangement)."),
     FormField(2, "Speed X", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(3, "Speed Y", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(6, "Operating System", 1, {1: "Linux", 2: "MacOS", 3: "Windows", 4: "Android", 255: "Other"}, "uint8"),
-    FormField(7, "Screen Position", 1, {1: "Left", 2: "Right"}, "uint8"),
+    FormField(7, "Screen Position", 1, {1: "Left", 2: "Right", 4: "Top", 5: "Bottom"}, "uint8",
+              help="Position of this output in your setup. Use Left/Right for side-by-side setups, Top/Bottom for stacked setups. The inter-computer border is on the opposite side (e.g., Right position = border on left edge)."),
     FormField(8, "Cursor Park Position", 0, {0: "Top", 1: "Bottom", 3: "Previous"}, "uint8",
               help="Where the cursor appears when switching to this computer. Use 'Previous' to remember the last position, or set Top/Bottom for a consistent starting point."),
     FormField(1003, "Screensaver", elem="label"),

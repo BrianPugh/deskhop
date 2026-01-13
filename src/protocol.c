@@ -95,9 +95,6 @@ const field_map_t api_field_map[] = {
 
     /* Hold-to-switch threshold */
     { 87, false, UINT16, 2, offsetof(device_t, config.hold_threshold_ms) },
-
-    /* Computer layout (how computers A and B are positioned relative to each other) */
-    { 88, false, UINT8, 1, offsetof(device_t, config.computer_layout) },
 };
 
 const field_map_t* get_field_map_entry(uint32_t index) {

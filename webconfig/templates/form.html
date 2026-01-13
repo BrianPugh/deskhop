@@ -86,7 +86,7 @@
 
   {% elif item["values"] %}
     {{ label(item, class='') }}
-    <select class="api" data-type="{{ item.type }}" data-key="{{ key }}" {% if section %}data-section="{{ section }}"{% endif %} {% if item.json_name %}data-name="{{ item.json_name }}"{% endif %} required>
+    <select class="api" data-type="{{ item.type }}" data-key="{{ key }}" {% if section %}data-section="{{ section }}"{% endif %} {% if item.json_name %}data-name="{{ item.json_name }}"{% endif %} onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     {% for k, v in item["values"].items() %}

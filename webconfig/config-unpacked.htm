@@ -857,7 +857,7 @@ img {
     
 <label class="">Screen Count</label>
 
-    <select class="api" data-type="uint32" data-key="11" data-section="output_a" data-name="screen_count" required>
+    <select class="api" data-type="uint32" data-key="11" data-section="output_a" data-name="screen_count" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -887,7 +887,7 @@ img {
     
 <label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged on this computer: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="14" data-section="output_a" data-name="monitor_layout" required>
+    <select class="api" data-type="uint8" data-key="14" data-section="output_a" data-name="monitor_layout" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -913,9 +913,9 @@ img {
 
   
     
-<label class="">Border Monitor Index<span class="tip" data-tip="For vertical layouts: which monitor (1=top, 2=middle, 3=bottom) can switch to the other computer. Only relevant when Monitor Layout is Vertical."></span></label>
+<label class="">Border Monitor Index<span class="tip" data-tip="Which monitor can switch to the other computer. Numbering: 1=left/top, 2=middle, 3=right/bottom. Only applies when monitor orientation differs from computer orientation (e.g., side-by-side monitors with a stacked computer arrangement)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="15" data-section="output_a" data-name="border_monitor_index" required>
+    <select class="api" data-type="uint8" data-key="15" data-section="output_a" data-name="border_monitor_index" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1025,7 +1025,7 @@ img {
     
 <label class="">Operating System</label>
 
-    <select class="api" data-type="uint8" data-key="16" data-section="output_a" data-name="operating_system" required>
+    <select class="api" data-type="uint8" data-key="16" data-section="output_a" data-name="operating_system" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1057,15 +1057,19 @@ img {
 
   
     
-<label class="">Screen Position</label>
+<label class="">Screen Position<span class="tip" data-tip="Position of this output in your setup. Use Left/Right for side-by-side setups, Top/Bottom for stacked setups. The inter-computer border is on the opposite side (e.g., Right position = border on left edge)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="17" data-section="output_a" data-name="screen_position" required>
+    <select class="api" data-type="uint8" data-key="17" data-section="output_a" data-name="screen_position" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
     <option value="1">Left</option>
     
     <option value="2">Right</option>
+    
+    <option value="4">Top</option>
+    
+    <option value="5">Bottom</option>
     
     </select><br />
 
@@ -1087,7 +1091,7 @@ img {
     
 <label class="">Cursor Park Position<span class="tip" data-tip="Where the cursor appears when switching to this computer. Use 'Previous' to remember the last position, or set Top/Bottom for a consistent starting point."></span></label>
 
-    <select class="api" data-type="uint8" data-key="18" data-section="output_a" data-name="cursor_park_position" required>
+    <select class="api" data-type="uint8" data-key="18" data-section="output_a" data-name="cursor_park_position" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1136,7 +1140,7 @@ img {
     
 <label class="">Mode<span class="tip" data-tip="Moves the cursor automatically to prevent screen sleep. Pong bounces smoothly across the screen; Jitter makes small random movements."></span></label>
 
-    <select class="api" data-type="uint8" data-key="19" data-section="output_a" data-name="mode" required>
+    <select class="api" data-type="uint8" data-key="19" data-section="output_a" data-name="mode" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1394,7 +1398,7 @@ img {
     
 <label class="">Screen Count</label>
 
-    <select class="api" data-type="uint32" data-key="41" data-section="output_b" data-name="screen_count" required>
+    <select class="api" data-type="uint32" data-key="41" data-section="output_b" data-name="screen_count" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1424,7 +1428,7 @@ img {
     
 <label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged on this computer: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="44" data-section="output_b" data-name="monitor_layout" required>
+    <select class="api" data-type="uint8" data-key="44" data-section="output_b" data-name="monitor_layout" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1450,9 +1454,9 @@ img {
 
   
     
-<label class="">Border Monitor Index<span class="tip" data-tip="For vertical layouts: which monitor (1=top, 2=middle, 3=bottom) can switch to the other computer. Only relevant when Monitor Layout is Vertical."></span></label>
+<label class="">Border Monitor Index<span class="tip" data-tip="Which monitor can switch to the other computer. Numbering: 1=left/top, 2=middle, 3=right/bottom. Only applies when monitor orientation differs from computer orientation (e.g., side-by-side monitors with a stacked computer arrangement)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="45" data-section="output_b" data-name="border_monitor_index" required>
+    <select class="api" data-type="uint8" data-key="45" data-section="output_b" data-name="border_monitor_index" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1562,7 +1566,7 @@ img {
     
 <label class="">Operating System</label>
 
-    <select class="api" data-type="uint8" data-key="46" data-section="output_b" data-name="operating_system" required>
+    <select class="api" data-type="uint8" data-key="46" data-section="output_b" data-name="operating_system" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1594,15 +1598,19 @@ img {
 
   
     
-<label class="">Screen Position</label>
+<label class="">Screen Position<span class="tip" data-tip="Position of this output in your setup. Use Left/Right for side-by-side setups, Top/Bottom for stacked setups. The inter-computer border is on the opposite side (e.g., Right position = border on left edge)."></span></label>
 
-    <select class="api" data-type="uint8" data-key="47" data-section="output_b" data-name="screen_position" required>
+    <select class="api" data-type="uint8" data-key="47" data-section="output_b" data-name="screen_position" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
     <option value="1">Left</option>
     
     <option value="2">Right</option>
+    
+    <option value="4">Top</option>
+    
+    <option value="5">Bottom</option>
     
     </select><br />
 
@@ -1624,7 +1632,7 @@ img {
     
 <label class="">Cursor Park Position<span class="tip" data-tip="Where the cursor appears when switching to this computer. Use 'Previous' to remember the last position, or set Top/Bottom for a consistent starting point."></span></label>
 
-    <select class="api" data-type="uint8" data-key="48" data-section="output_b" data-name="cursor_park_position" required>
+    <select class="api" data-type="uint8" data-key="48" data-section="output_b" data-name="cursor_park_position" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -1673,7 +1681,7 @@ img {
     
 <label class="">Mode<span class="tip" data-tip="Moves the cursor automatically to prevent screen sleep. Pong bounces smoothly across the screen; Jitter makes small random movements."></span></label>
 
-    <select class="api" data-type="uint8" data-key="49" data-section="output_b" data-name="mode" required>
+    <select class="api" data-type="uint8" data-key="49" data-section="output_b" data-name="mode" onchange="valueChangedHandler(this)" required>
     <option disabled selected value></option>
 
     
@@ -2190,35 +2198,7 @@ img {
 
 
   
-    
-<label class="">Computer Layout<span class="tip" data-tip="How the two computers are positioned: Horizontal (side-by-side) or Vertical (stacked)."></span></label>
-
-    <select class="api" data-type="uint8" data-key="88" data-section="common" data-name="computer_layout" required>
-    <option disabled selected value></option>
-
-    
-    <option value="0">Horizontal</option>
-    
-    <option value="1">Vertical</option>
-    
-    </select><br />
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-    <label>Computer Border (A ↔ B)<span class="tip" data-tip="Coordinate range for switching between computers. Y-range for horizontal layouts, X-range for vertical layouts."></span></label>
+    <label>Computer Border (A ↔ B)<span class="tip" data-tip="Coordinate range for switching between computers. Y-range for horizontal layouts (Left/Right), X-range for vertical layouts (Top/Bottom)."></span></label>
     <table class="transition-table">
       <thead>
         <tr>
@@ -2369,6 +2349,18 @@ img {
   const mgmtReportId = 6;
 var device;
 
+/* Screen Position validation: both outputs must use same orientation */
+const SCREEN_POS_KEY_A = 17;  /* Output A: base 10 + offset 7 */
+const SCREEN_POS_KEY_B = 47;  /* Output B: base 40 + offset 7 */
+
+/* Conditional visibility: Monitor Layout and Border Monitor Index only shown when Screen Count > 1 */
+const SCREEN_COUNT_KEY_A = 11;      /* Output A: base 10 + offset 1 */
+const SCREEN_COUNT_KEY_B = 41;      /* Output B: base 40 + offset 1 */
+const MONITOR_LAYOUT_KEY_A = 14;    /* Output A: base 10 + offset 4 */
+const MONITOR_LAYOUT_KEY_B = 44;    /* Output B: base 40 + offset 4 */
+const BORDER_MON_IDX_KEY_A = 15;    /* Output A: base 10 + offset 5 */
+const BORDER_MON_IDX_KEY_B = 45;    /* Output B: base 40 + offset 5 */
+
 const packetType = {
   keyboardReportMsg: 1, mouseReportMsg: 2, outputSelectMsg: 3, firmwareUpgradeMsg: 4, switchLockMsg: 7,
   syncBordersMsg: 8, flashLedMsg: 9, wipeConfigMsg: 10, readConfigMsg: 16, writeConfigMsg: 17, saveConfigMsg: 18,
@@ -2448,6 +2440,9 @@ window.addEventListener('load', async function () {
     window[event.target.dataset.handler]();
   });
 
+  /* Hide Border Monitor Index by default (shown when Screen Count > 1) */
+  updateAllMultiMonitorFieldsVisibility();
+
   // Try to auto-connect to a previously authorized device
   await autoConnectHandler();
 });
@@ -2516,6 +2511,11 @@ function setValue(element, value, updateFetchedValue = true) {
   else
     element.value = value;
   element.dispatchEvent(new Event('input', { bubbles: true }));
+
+  /* Update Border Monitor Index visibility when Screen Count changes */
+  const key = parseInt(element.getAttribute('data-key'));
+  if (key === SCREEN_COUNT_KEY_A || key === SCREEN_COUNT_KEY_B)
+    updateMultiMonitorFieldsVisibility(key);
 }
 
 
@@ -2576,12 +2576,81 @@ async function enterBootloaderHandler() {
   await sendReport(packetType.firmwareUpgradeMsg, true, true);
 }
 
+function setFieldVisibility(fieldKey, show) {
+  const element = document.querySelector(`[data-key="${fieldKey}"]`);
+  if (!element)
+    return;
+
+  const display = show ? '' : 'none';
+
+  /* Hide the element and its preceding label */
+  element.style.display = display;
+  const label = element.previousElementSibling;
+  if (label && label.tagName === 'LABEL')
+    label.style.display = display;
+  /* Also hide the <br> after the element */
+  const br = element.nextElementSibling;
+  if (br && br.tagName === 'BR')
+    br.style.display = display;
+}
+
+function updateMultiMonitorFieldsVisibility(screenCountKey) {
+  const isOutputA = (screenCountKey === SCREEN_COUNT_KEY_A);
+  const monitorLayoutKey = isOutputA ? MONITOR_LAYOUT_KEY_A : MONITOR_LAYOUT_KEY_B;
+  const borderMonKey = isOutputA ? BORDER_MON_IDX_KEY_A : BORDER_MON_IDX_KEY_B;
+
+  const screenCountEl = document.querySelector(`[data-key="${screenCountKey}"]`);
+
+  /* Hide by default if Screen Count not set or <= 1 */
+  const screenCount = screenCountEl ? parseInt(screenCountEl.value) : 0;
+  const show = screenCount > 1;
+
+  setFieldVisibility(monitorLayoutKey, show);
+  setFieldVisibility(borderMonKey, show);
+}
+
+function updateAllMultiMonitorFieldsVisibility() {
+  updateMultiMonitorFieldsVisibility(SCREEN_COUNT_KEY_A);
+  updateMultiMonitorFieldsVisibility(SCREEN_COUNT_KEY_B);
+}
+
+function isVerticalPosition(value) {
+  /* TOP=4, BOTTOM=5 are vertical; LEFT=1, RIGHT=2 are horizontal */
+  return value == 4 || value == 5;
+}
+
+function validateScreenPositions() {
+  const elementA = document.querySelector(`[data-key="${SCREEN_POS_KEY_A}"]`);
+  const elementB = document.querySelector(`[data-key="${SCREEN_POS_KEY_B}"]`);
+
+  if (!elementA || !elementB || !elementA.value || !elementB.value)
+    return true;  /* Not both set yet, allow */
+
+  const aVertical = isVerticalPosition(elementA.value);
+  const bVertical = isVerticalPosition(elementB.value);
+
+  if (aVertical !== bVertical) {
+    const aOrientation = aVertical ? "vertical (Top/Bottom)" : "horizontal (Left/Right)";
+    const bOrientation = bVertical ? "vertical (Top/Bottom)" : "horizontal (Left/Right)";
+
+    alert(`Screen Position mismatch!\n\nOutput A is set to ${aOrientation}, but Output B is set to ${bOrientation}.\n\nBoth outputs must use the same orientation (both horizontal or both vertical).`);
+    return false;
+  }
+
+  return true;
+}
+
 async function valueChangedHandler(element) {
   var key = element.getAttribute('data-key');
   var dataType = element.getAttribute('data-type');
+  var keyInt = parseInt(key);
 
   var origValue = element.getAttribute('fetched-value');
   var newValue = getValue(element);
+
+  /* Update Border Monitor Index visibility when Screen Count changes */
+  if (keyInt === SCREEN_COUNT_KEY_A || keyInt === SCREEN_COUNT_KEY_B)
+    updateMultiMonitorFieldsVisibility(keyInt);
 
   if (origValue != newValue) {
     uintBuffer = packValue(element, key, dataType);
@@ -2598,6 +2667,10 @@ async function saveHandler() {
   const elements = document.querySelectorAll('.api');
 
   if (!device || !device.opened)
+    return;
+
+  /* Validate Screen Position orientation before saving */
+  if (!validateScreenPositions())
     return;
 
   for (const element of elements) {

@@ -82,8 +82,7 @@ typedef struct {
 
     output_t output[NUM_SCREENS];
     screen_transition_t computer_border;  // Ranges for computer A↔B transitions
-    layout_t computer_layout;             // How the two computers are positioned (side-by-side vs stacked)
-    uint16_t hold_threshold_ms;
+    uint16_t hold_threshold_ms;           // Tap vs hold threshold for output toggle hotkey
     uint16_t _reserved;
 
     // Keep checksum at the end of the struct

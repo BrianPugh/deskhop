@@ -77,5 +77,4 @@ const config_t default_config = {
         .from = { .start = 0, .end = MAX_SCREEN_COORD },
         .to   = { .start = 0, .end = MAX_SCREEN_COORD },
     },
-    .computer_layout = LAYOUT_HORIZONTAL,
 };

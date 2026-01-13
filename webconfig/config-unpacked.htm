@@ -885,7 +885,7 @@ img {
 
   
     
-<label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
+<label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged on this computer: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
 
     <select class="api" data-type="uint8" data-key="14" data-section="output_a" data-name="monitor_layout" required>
     <option disabled selected value></option>
@@ -1241,7 +1241,7 @@ img {
 
 
   
-    <label>Horizontal Transitions (Y-ranges)<span class="tip" data-tip="For horizontal layouts: Y-coordinate ranges where cursor can move between side-by-side monitors. Use RightShift + F12 + Y hotkey; see manual for more details."></span></label>
+    <label>Screen Transitions<span class="tip" data-tip="Coordinate ranges where cursor can move between monitors. Y-ranges for horizontal layouts, X-ranges for vertical layouts. Use RightShift + F12 + Y hotkey; see manual for more details."></span></label>
     <table class="transition-table">
       <thead>
         <tr>
@@ -1278,25 +1278,25 @@ img {
           <td>
 <input class="api" type="text" name="name23" data-type="int16" data-key="23"
   data-section="output_a"
-  data-name="horizontal_transitions.1_2.from_start"
+  data-name="transitions.1_2.from_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name24" data-type="int16" data-key="24"
   data-section="output_a"
-  data-name="horizontal_transitions.1_2.from_end"
+  data-name="transitions.1_2.from_end"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name25" data-type="int16" data-key="25"
   data-section="output_a"
-  data-name="horizontal_transitions.1_2.to_start"
+  data-name="transitions.1_2.to_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name26" data-type="int16" data-key="26"
   data-section="output_a"
-  data-name="horizontal_transitions.1_2.to_end"
+  data-name="transitions.1_2.to_end"
   onchange="valueChangedHandler(this)" />
 </td>
         </tr>
@@ -1321,161 +1321,25 @@ img {
           <td>
 <input class="api" type="text" name="name27" data-type="int16" data-key="27"
   data-section="output_a"
-  data-name="horizontal_transitions.2_3.from_start"
+  data-name="transitions.2_3.from_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name28" data-type="int16" data-key="28"
   data-section="output_a"
-  data-name="horizontal_transitions.2_3.from_end"
+  data-name="transitions.2_3.from_end"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name29" data-type="int16" data-key="29"
   data-section="output_a"
-  data-name="horizontal_transitions.2_3.to_start"
+  data-name="transitions.2_3.to_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name30" data-type="int16" data-key="30"
   data-section="output_a"
-  data-name="horizontal_transitions.2_3.to_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-        </tr>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-      </tbody>
-    </table>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-    <label>Vertical Transitions (X-ranges)<span class="tip" data-tip="For vertical layouts: X-coordinate ranges where cursor can move between stacked monitors (top ↔ bottom)."></span></label>
-    <table class="transition-table">
-      <thead>
-        <tr>
-          <th rowspan="2"></th>
-          <th colspan="2">→ (From)</th>
-          <th colspan="2">← (To)</th>
-        </tr>
-        <tr>
-          <th>Start</th>
-          <th>End</th>
-          <th>Start</th>
-          <th>End</th>
-        </tr>
-      </thead>
-      <tbody>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-        <tr>
-          <td>1 ↔ 2</td>
-          <td>
-<input class="api" type="text" name="name31" data-type="int16" data-key="31"
-  data-section="output_a"
-  data-name="vertical_transitions.1_2.from_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name32" data-type="int16" data-key="32"
-  data-section="output_a"
-  data-name="vertical_transitions.1_2.from_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name33" data-type="int16" data-key="33"
-  data-section="output_a"
-  data-name="vertical_transitions.1_2.to_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name34" data-type="int16" data-key="34"
-  data-section="output_a"
-  data-name="vertical_transitions.1_2.to_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-        </tr>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-        <tr>
-          <td>2 ↔ 3</td>
-          <td>
-<input class="api" type="text" name="name35" data-type="int16" data-key="35"
-  data-section="output_a"
-  data-name="vertical_transitions.2_3.from_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name36" data-type="int16" data-key="36"
-  data-section="output_a"
-  data-name="vertical_transitions.2_3.from_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name37" data-type="int16" data-key="37"
-  data-section="output_a"
-  data-name="vertical_transitions.2_3.to_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name38" data-type="int16" data-key="38"
-  data-section="output_a"
-  data-name="vertical_transitions.2_3.to_end"
+  data-name="transitions.2_3.to_end"
   onchange="valueChangedHandler(this)" />
 </td>
         </tr>
@@ -1558,7 +1422,7 @@ img {
 
   
     
-<label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
+<label class="">Monitor Layout<span class="tip" data-tip="How monitors are arranged on this computer: Horizontal (side-by-side) or Vertical (stacked top-to-bottom)."></span></label>
 
     <select class="api" data-type="uint8" data-key="44" data-section="output_b" data-name="monitor_layout" required>
     <option disabled selected value></option>
@@ -1914,7 +1778,7 @@ img {
 
 
   
-    <label>Horizontal Transitions (Y-ranges)<span class="tip" data-tip="For horizontal layouts: Y-coordinate ranges where cursor can move between side-by-side monitors. Use RightShift + F12 + Y hotkey; see manual for more details."></span></label>
+    <label>Screen Transitions<span class="tip" data-tip="Coordinate ranges where cursor can move between monitors. Y-ranges for horizontal layouts, X-ranges for vertical layouts. Use RightShift + F12 + Y hotkey; see manual for more details."></span></label>
     <table class="transition-table">
       <thead>
         <tr>
@@ -1951,25 +1815,25 @@ img {
           <td>
 <input class="api" type="text" name="name53" data-type="int16" data-key="53"
   data-section="output_b"
-  data-name="horizontal_transitions.1_2.from_start"
+  data-name="transitions.1_2.from_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name54" data-type="int16" data-key="54"
   data-section="output_b"
-  data-name="horizontal_transitions.1_2.from_end"
+  data-name="transitions.1_2.from_end"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name55" data-type="int16" data-key="55"
   data-section="output_b"
-  data-name="horizontal_transitions.1_2.to_start"
+  data-name="transitions.1_2.to_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name56" data-type="int16" data-key="56"
   data-section="output_b"
-  data-name="horizontal_transitions.1_2.to_end"
+  data-name="transitions.1_2.to_end"
   onchange="valueChangedHandler(this)" />
 </td>
         </tr>
@@ -1994,161 +1858,25 @@ img {
           <td>
 <input class="api" type="text" name="name57" data-type="int16" data-key="57"
   data-section="output_b"
-  data-name="horizontal_transitions.2_3.from_start"
+  data-name="transitions.2_3.from_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name58" data-type="int16" data-key="58"
   data-section="output_b"
-  data-name="horizontal_transitions.2_3.from_end"
+  data-name="transitions.2_3.from_end"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name59" data-type="int16" data-key="59"
   data-section="output_b"
-  data-name="horizontal_transitions.2_3.to_start"
+  data-name="transitions.2_3.to_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name60" data-type="int16" data-key="60"
   data-section="output_b"
-  data-name="horizontal_transitions.2_3.to_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-        </tr>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-      </tbody>
-    </table>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-    <label>Vertical Transitions (X-ranges)<span class="tip" data-tip="For vertical layouts: X-coordinate ranges where cursor can move between stacked monitors (top ↔ bottom)."></span></label>
-    <table class="transition-table">
-      <thead>
-        <tr>
-          <th rowspan="2"></th>
-          <th colspan="2">→ (From)</th>
-          <th colspan="2">← (To)</th>
-        </tr>
-        <tr>
-          <th>Start</th>
-          <th>End</th>
-          <th>Start</th>
-          <th>End</th>
-        </tr>
-      </thead>
-      <tbody>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-        <tr>
-          <td>1 ↔ 2</td>
-          <td>
-<input class="api" type="text" name="name61" data-type="int16" data-key="61"
-  data-section="output_b"
-  data-name="vertical_transitions.1_2.from_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name62" data-type="int16" data-key="62"
-  data-section="output_b"
-  data-name="vertical_transitions.1_2.from_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name63" data-type="int16" data-key="63"
-  data-section="output_b"
-  data-name="vertical_transitions.1_2.to_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name64" data-type="int16" data-key="64"
-  data-section="output_b"
-  data-name="vertical_transitions.1_2.to_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-        </tr>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-        <tr>
-          <td>2 ↔ 3</td>
-          <td>
-<input class="api" type="text" name="name65" data-type="int16" data-key="65"
-  data-section="output_b"
-  data-name="vertical_transitions.2_3.from_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name66" data-type="int16" data-key="66"
-  data-section="output_b"
-  data-name="vertical_transitions.2_3.from_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name67" data-type="int16" data-key="67"
-  data-section="output_b"
-  data-name="vertical_transitions.2_3.to_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name68" data-type="int16" data-key="68"
-  data-section="output_b"
-  data-name="vertical_transitions.2_3.to_end"
+  data-name="transitions.2_3.to_end"
   onchange="valueChangedHandler(this)" />
 </td>
         </tr>
@@ -2462,7 +2190,35 @@ img {
 
 
   
-    <label>Horizontal Computer Border (A ↔ B)<span class="tip" data-tip="Y-coordinate range for switching between computers when monitors are side-by-side."></span></label>
+    
+<label class="">Computer Layout<span class="tip" data-tip="How the two computers are positioned: Horizontal (side-by-side) or Vertical (stacked)."></span></label>
+
+    <select class="api" data-type="uint8" data-key="88" data-section="common" data-name="computer_layout" required>
+    <option disabled selected value></option>
+
+    
+    <option value="0">Horizontal</option>
+    
+    <option value="1">Vertical</option>
+    
+    </select><br />
+
+  
+
+            
+              
+
+
+
+
+
+
+
+
+
+
+  
+    <label>Computer Border (A ↔ B)<span class="tip" data-tip="Coordinate range for switching between computers. Y-range for horizontal layouts, X-range for vertical layouts."></span></label>
     <table class="transition-table">
       <thead>
         <tr>
@@ -2499,118 +2255,25 @@ img {
           <td>
 <input class="api" type="text" name="name83" data-type="int16" data-key="83"
   data-section="common"
-  data-name="horizontal_border.from_start"
+  data-name="border.from_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name84" data-type="int16" data-key="84"
   data-section="common"
-  data-name="horizontal_border.from_end"
+  data-name="border.from_end"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name85" data-type="int16" data-key="85"
   data-section="common"
-  data-name="horizontal_border.to_start"
+  data-name="border.to_start"
   onchange="valueChangedHandler(this)" />
 </td>
           <td>
 <input class="api" type="text" name="name86" data-type="int16" data-key="86"
   data-section="common"
-  data-name="horizontal_border.to_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-        </tr>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-      </tbody>
-    </table>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-    <label>Vertical Computer Border (A ↔ B)<span class="tip" data-tip="X-coordinate range for switching between computers when monitors are stacked."></span></label>
-    <table class="transition-table">
-      <thead>
-        <tr>
-          <th rowspan="2"></th>
-          <th colspan="2">→ (From)</th>
-          <th colspan="2">← (To)</th>
-        </tr>
-        <tr>
-          <th>Start</th>
-          <th>End</th>
-          <th>Start</th>
-          <th>End</th>
-        </tr>
-      </thead>
-      <tbody>
-
-  
-
-            
-              
-
-
-
-
-
-
-
-
-
-
-  
-        <tr>
-          <td>A ↔ B</td>
-          <td>
-<input class="api" type="text" name="name88" data-type="int16" data-key="88"
-  data-section="common"
-  data-name="vertical_border.from_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name89" data-type="int16" data-key="89"
-  data-section="common"
-  data-name="vertical_border.from_end"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name90" data-type="int16" data-key="90"
-  data-section="common"
-  data-name="vertical_border.to_start"
-  onchange="valueChangedHandler(this)" />
-</td>
-          <td>
-<input class="api" type="text" name="name91" data-type="int16" data-key="91"
-  data-section="common"
-  data-name="vertical_border.to_end"
+  data-name="border.to_end"
   onchange="valueChangedHandler(this)" />
 </td>
         </tr>

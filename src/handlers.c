@@ -82,9 +82,9 @@ void _send_set_val_msg(uint8_t index, int32_t value) {
 }
 
 /* Sync the computer border to the other device after local save.
- * Both devices need both from and to ranges for Y-mapping to work. */
-void _sync_horizontal_computer_border(device_t *state) {
-    horizontal_transition_t *border = &state->config.horizontal_computer_border;
+ * Both devices need both from and to ranges for coordinate mapping to work. */
+void _sync_computer_border(device_t *state) {
+    screen_transition_t *border = &state->config.computer_border;
 
     /* Send all 4 values to the other device */
     _send_set_val_msg(83, border->from.start);
@@ -113,22 +113,22 @@ void _save_screen_border(device_t *state) {
     if (idx == 1 && cursor_toward_border) {
         /* On primary screen, cursor toward computer border: set computer-switching border */
         if (state->active_output == 0)
-            border = &state->config.horizontal_computer_border.from;
+            border = &state->config.computer_border.from;
         else
-            border = &state->config.horizontal_computer_border.to;
+            border = &state->config.computer_border.to;
         is_computer_border = true;
     } else if (idx == 1) {
         /* On primary screen, cursor away from border: set transition 0 "from" (1→2) */
-        border = &output->horizontal_transition[0].from;
+        border = &output->screen_transition[0].from;
     } else if (idx == output->screen_count) {
         /* On last screen: set the "to" border for returning */
-        border = &output->horizontal_transition[idx - 2].to;
+        border = &output->screen_transition[idx - 2].to;
     } else {
-        /* On middle screen: use cursor X position to decide which transition */
+        /* On middle screen: use cursor position to decide which transition */
         if (state->pointer_x < MAX_SCREEN_COORD / 2) {
-            border = &output->horizontal_transition[idx - 2].to;
+            border = &output->screen_transition[idx - 2].to;
         } else {
-            border = &output->horizontal_transition[idx - 1].from;
+            border = &output->screen_transition[idx - 1].from;
         }
     }
 
@@ -137,7 +137,7 @@ void _save_screen_border(device_t *state) {
 
     /* Sync computer border to the other device so both have complete mapping data */
     if (is_computer_border)
-        _sync_horizontal_computer_border(state);
+        _sync_computer_border(state);
 }
 
 /* Hotkey handler - routes to the device with the mouse, which has the authoritative pointer position */

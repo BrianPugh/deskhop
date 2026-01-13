@@ -26,21 +26,19 @@
  *==============================================================================*/
 
 typedef struct {
-    int16_t start;
-    int16_t end;
+    int16_t start;  // Range start (Y for horizontal layouts, X for vertical)
+    int16_t end;    // Range end
 } border_size_t;
 
 typedef struct {
-    border_size_t from;
-    border_size_t to;
-} horizontal_transition_t;
-
-typedef horizontal_transition_t vertical_transition_t;
+    border_size_t from;  // Range on lower-indexed screen to allow transition
+    border_size_t to;    // Range on higher-indexed screen to allow transition back
+} screen_transition_t;
 
 typedef enum {
-    MONITOR_LAYOUT_HORIZONTAL = 0,
-    MONITOR_LAYOUT_VERTICAL = 1
-} monitor_layout_t;
+    LAYOUT_HORIZONTAL = 0,  // Side-by-side arrangement
+    LAYOUT_VERTICAL = 1     // Stacked arrangement (top-to-bottom)
+} layout_t;
 
 typedef struct {
     uint8_t mode;
@@ -50,17 +48,16 @@ typedef struct {
 } screensaver_t;
 
 typedef struct {
-    uint32_t number;
-    uint32_t screen_count;
-    uint32_t screen_index;
-    int32_t speed_x;
-    int32_t speed_y;
-    horizontal_transition_t horizontal_transition[MAX_SCREEN_COUNT - 1];
-    vertical_transition_t vertical_transition[MAX_SCREEN_COUNT - 1];
-    uint8_t os;
-    uint8_t pos;
-    uint8_t mouse_park_pos;
-    monitor_layout_t monitor_layout;
-    uint8_t border_monitor_index;
-    screensaver_t screensaver;
+    uint32_t number;           // Number of this output (e.g. OUTPUT_A = 0 etc)
+    uint32_t screen_count;     // How many monitors per output (e.g. Output A is Windows with 3 monitors)
+    uint32_t screen_index;     // Current active screen
+    int32_t speed_x;           // Mouse speed per output, in direction X
+    int32_t speed_y;           // Mouse speed per output, in direction Y
+    screen_transition_t screen_transition[MAX_SCREEN_COUNT - 1];  // Ranges for screen transitions
+    uint8_t os;                // Operating system on this output
+    uint8_t pos;               // Screen position on this output (LEFT/RIGHT or TOP/BOTTOM)
+    uint8_t mouse_park_pos;    // Where the mouse goes after switch
+    layout_t monitor_layout;   // How this computer's monitors are arranged
+    uint8_t border_monitor_index;  // For vertical layouts: which monitor can switch to other computer
+    screensaver_t screensaver; // Screensaver parameters for this output
 } output_t;

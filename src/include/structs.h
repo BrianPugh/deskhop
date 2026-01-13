@@ -81,8 +81,8 @@ typedef struct {
     uint16_t jump_threshold;
 
     output_t output[NUM_SCREENS];
-    horizontal_transition_t horizontal_computer_border;
-    vertical_transition_t vertical_computer_border;
+    screen_transition_t computer_border;  // Ranges for computer A↔B transitions
+    layout_t computer_layout;             // How the two computers are positioned (side-by-side vs stacked)
     uint16_t hold_threshold_ms;
     uint16_t _reserved;
 

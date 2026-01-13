@@ -22,13 +22,7 @@ const config_t default_config = {
             .number = OUTPUT_A,
             .speed_x = MOUSE_SPEED_A_FACTOR_X,
             .speed_y = MOUSE_SPEED_A_FACTOR_Y,
-            .horizontal_transition = {
-                [0] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
-                        .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
-                [1] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
-                        .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
-            },
-            .vertical_transition = {
+            .screen_transition = {
                 [0] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
                         .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
                 [1] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
@@ -38,7 +32,7 @@ const config_t default_config = {
             .screen_index = 1,
             .os = OUTPUT_A_OS,
             .pos = RIGHT,
-            .monitor_layout = MONITOR_LAYOUT_HORIZONTAL,
+            .monitor_layout = LAYOUT_HORIZONTAL,
             .border_monitor_index = 1,
             .screensaver = {
                 .mode = SCREENSAVER_A_MODE,
@@ -52,13 +46,7 @@ const config_t default_config = {
             .number = OUTPUT_B,
             .speed_x = MOUSE_SPEED_B_FACTOR_X,
             .speed_y = MOUSE_SPEED_B_FACTOR_Y,
-            .horizontal_transition = {
-                [0] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
-                        .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
-                [1] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
-                        .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
-            },
-            .vertical_transition = {
+            .screen_transition = {
                 [0] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
                         .to   = { .start = 0, .end = MAX_SCREEN_COORD } },
                 [1] = { .from = { .start = 0, .end = MAX_SCREEN_COORD },
@@ -68,7 +56,7 @@ const config_t default_config = {
             .screen_index = 1,
             .os = OUTPUT_B_OS,
             .pos = LEFT,
-            .monitor_layout = MONITOR_LAYOUT_HORIZONTAL,
+            .monitor_layout = LAYOUT_HORIZONTAL,
             .border_monitor_index = 1,
             .screensaver = {
                 .mode = SCREENSAVER_B_MODE,
@@ -85,12 +73,9 @@ const config_t default_config = {
     .kbd_led_as_indicator = KBD_LED_AS_INDICATOR,
     .jump_threshold = JUMP_THRESHOLD,
     .hold_threshold_ms = HOTKEY_HOLD_THRESHOLD_MS,
-    .horizontal_computer_border = {
+    .computer_border = {
         .from = { .start = 0, .end = MAX_SCREEN_COORD },
         .to   = { .start = 0, .end = MAX_SCREEN_COORD },
     },
-    .vertical_computer_border = {
-        .from = { .start = 0, .end = MAX_SCREEN_COORD },
-        .to   = { .start = 0, .end = MAX_SCREEN_COORD },
-    },
+    .computer_layout = LAYOUT_HORIZONTAL,
 };

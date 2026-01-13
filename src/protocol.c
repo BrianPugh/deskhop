@@ -22,6 +22,8 @@ const field_map_t api_field_map[] = {
     { 11, false, UINT32, 4, offsetof(device_t, config.output[0].screen_count) },
     { 12, false, INT32,  4, offsetof(device_t, config.output[0].speed_x) },
     { 13, false, INT32,  4, offsetof(device_t, config.output[0].speed_y) },
+    { 14, false, UINT8,  1, offsetof(device_t, config.output[0].monitor_layout) },
+    { 15, false, UINT8,  1, offsetof(device_t, config.output[0].border_monitor_index) },
     { 16, false, UINT8,  1, offsetof(device_t, config.output[0].os) },
     { 17, false, UINT8,  1, offsetof(device_t, config.output[0].pos) },
     { 18, false, UINT8,  1, offsetof(device_t, config.output[0].mouse_park_pos) },
@@ -33,34 +35,22 @@ const field_map_t api_field_map[] = {
     { 22, false, UINT64, 7, offsetof(device_t, config.output[0].screensaver.max_time_us) },
 
     /* Output A screen transitions */
-    { 23, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[0].from.start) },
-    { 24, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[0].from.end) },
-    { 25, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[0].to.start) },
-    { 26, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[0].to.end) },
-    { 27, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[1].from.start) },
-    { 28, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[1].from.end) },
-    { 29, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[1].to.start) },
-    { 30, false, INT16, 2, offsetof(device_t, config.output[0].horizontal_transition[1].to.end) },
-
-    /* Output A vertical transitions */
-    { 31, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[0].from.start) },
-    { 32, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[0].from.end) },
-    { 33, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[0].to.start) },
-    { 34, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[0].to.end) },
-    { 35, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[1].from.start) },
-    { 36, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[1].from.end) },
-    { 37, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[1].to.start) },
-    { 38, false, INT16, 2, offsetof(device_t, config.output[0].vertical_transition[1].to.end) },
-
-    /* Output A monitor layout */
-    { 14, false, UINT8, 1, offsetof(device_t, config.output[0].monitor_layout) },
-    { 15, false, UINT8, 1, offsetof(device_t, config.output[0].border_monitor_index) },
+    { 23, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[0].from.start) },
+    { 24, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[0].from.end) },
+    { 25, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[0].to.start) },
+    { 26, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[0].to.end) },
+    { 27, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[1].from.start) },
+    { 28, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[1].from.end) },
+    { 29, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[1].to.start) },
+    { 30, false, INT16, 2, offsetof(device_t, config.output[0].screen_transition[1].to.end) },
 
     /* Output B */
     { 40, false, UINT32, 4, offsetof(device_t, config.output[1].number) },
     { 41, false, UINT32, 4, offsetof(device_t, config.output[1].screen_count) },
     { 42, false, INT32,  4, offsetof(device_t, config.output[1].speed_x) },
     { 43, false, INT32,  4, offsetof(device_t, config.output[1].speed_y) },
+    { 44, false, UINT8,  1, offsetof(device_t, config.output[1].monitor_layout) },
+    { 45, false, UINT8,  1, offsetof(device_t, config.output[1].border_monitor_index) },
     { 46, false, UINT8,  1, offsetof(device_t, config.output[1].os) },
     { 47, false, UINT8,  1, offsetof(device_t, config.output[1].pos) },
     { 48, false, UINT8,  1, offsetof(device_t, config.output[1].mouse_park_pos) },
@@ -70,28 +60,14 @@ const field_map_t api_field_map[] = {
     { 52, false, UINT64, 7, offsetof(device_t, config.output[1].screensaver.max_time_us) },
 
     /* Output B screen transitions */
-    { 53, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[0].from.start) },
-    { 54, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[0].from.end) },
-    { 55, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[0].to.start) },
-    { 56, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[0].to.end) },
-    { 57, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[1].from.start) },
-    { 58, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[1].from.end) },
-    { 59, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[1].to.start) },
-    { 60, false, INT16, 2, offsetof(device_t, config.output[1].horizontal_transition[1].to.end) },
-
-    /* Output B vertical transitions */
-    { 61, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[0].from.start) },
-    { 62, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[0].from.end) },
-    { 63, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[0].to.start) },
-    { 64, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[0].to.end) },
-    { 65, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[1].from.start) },
-    { 66, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[1].from.end) },
-    { 67, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[1].to.start) },
-    { 68, false, INT16, 2, offsetof(device_t, config.output[1].vertical_transition[1].to.end) },
-
-    /* Output B monitor layout */
-    { 44, false, UINT8, 1, offsetof(device_t, config.output[1].monitor_layout) },
-    { 45, false, UINT8, 1, offsetof(device_t, config.output[1].border_monitor_index) },
+    { 53, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[0].from.start) },
+    { 54, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[0].from.end) },
+    { 55, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[0].to.start) },
+    { 56, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[0].to.end) },
+    { 57, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[1].from.start) },
+    { 58, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[1].from.end) },
+    { 59, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[1].to.start) },
+    { 60, false, INT16, 2, offsetof(device_t, config.output[1].screen_transition[1].to.end) },
 
     /* Common config */
     { 70, false, UINT32, 4, offsetof(device_t, config.version) },
@@ -112,19 +88,16 @@ const field_map_t api_field_map[] = {
     { 82, true,  UINT8,  1, offsetof(device_t, relative_mouse) },
 
     /* Computer border (A↔B transition) */
-    { 83, false, INT16, 2, offsetof(device_t, config.horizontal_computer_border.from.start) },
-    { 84, false, INT16, 2, offsetof(device_t, config.horizontal_computer_border.from.end) },
-    { 85, false, INT16, 2, offsetof(device_t, config.horizontal_computer_border.to.start) },
-    { 86, false, INT16, 2, offsetof(device_t, config.horizontal_computer_border.to.end) },
+    { 83, false, INT16, 2, offsetof(device_t, config.computer_border.from.start) },
+    { 84, false, INT16, 2, offsetof(device_t, config.computer_border.from.end) },
+    { 85, false, INT16, 2, offsetof(device_t, config.computer_border.to.start) },
+    { 86, false, INT16, 2, offsetof(device_t, config.computer_border.to.end) },
 
     /* Hold-to-switch threshold */
     { 87, false, UINT16, 2, offsetof(device_t, config.hold_threshold_ms) },
 
-    /* Vertical computer border */
-    { 88, false, INT16, 2, offsetof(device_t, config.vertical_computer_border.from.start) },
-    { 89, false, INT16, 2, offsetof(device_t, config.vertical_computer_border.from.end) },
-    { 90, false, INT16, 2, offsetof(device_t, config.vertical_computer_border.to.start) },
-    { 91, false, INT16, 2, offsetof(device_t, config.vertical_computer_border.to.end) },
+    /* Computer layout (how computers A and B are positioned relative to each other) */
+    { 88, false, UINT8, 1, offsetof(device_t, config.computer_layout) },
 };
 
 const field_map_t* get_field_map_entry(uint32_t index) {
